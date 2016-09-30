@@ -20,7 +20,7 @@ class Catboard: KeyboardViewController {
     let takeDebugScreenshot: Bool = false
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
-        NSUserDefaults.standardUserDefaults().registerDefaults([kCatTypeEnabled: true])
+        NSUserDefaults.standardUserDefaults().registerDefaults([kCatTypeEnabled: false])
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
 
@@ -87,7 +87,7 @@ class Catboard: KeyboardViewController {
                 for rowKeys in page.rows {
                     for key in rowKeys {
                         if let keyView = self.layout!.viewForKey(key) {
-                            keyView.addTarget(self, action: "takeScreenshotDelay", forControlEvents: .TouchDown)
+                            keyView.addTarget(self, action: #selector(Catboard.takeScreenshotDelay), forControlEvents: .TouchDown)
                         }
                     }
                 }
@@ -100,7 +100,7 @@ class Catboard: KeyboardViewController {
     }
     
     func takeScreenshotDelay() {
-        NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: Selector("takeScreenshot"), userInfo: nil, repeats: false)
+        NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(Catboard.takeScreenshot), userInfo: nil, repeats: false)
     }
     
     func takeScreenshot() {
@@ -119,7 +119,7 @@ class Catboard: KeyboardViewController {
             let name = (self.interfaceOrientation.isPortrait ? "Screenshot-Portrait" : "Screenshot-Landscape")
             let imagePath = "/Users/archagon/Documents/Programming/OSX/RussianPhoneticKeyboard/External/tasty-imitation-keyboard/\(name).png"
             
-            if let pngRep = UIImagePNGRepresentation(capturedImage) {
+            if let pngRep = UIImagePNGRepresentation(capturedImage!) {
                 pngRep.writeToFile(imagePath, atomically: true)
             }
             

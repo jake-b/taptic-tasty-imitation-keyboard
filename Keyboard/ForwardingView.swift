@@ -166,16 +166,22 @@ class ForwardingView: UIView {
                 }
             }
         }
+        deepPressFlag = false
     }
+    
+    var deepPressFlag = false
     
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
         for touch in touches {
+            let force = touch.force / touch.maximumPossibleForce
             let position = touch.locationInView(self)
             
             let oldView = self.touchToView[touch]
             let newView = findNearestView(position)
             
             if oldView != newView {
+                
+                
                 self.handleControl(oldView, controlEvent: .TouchDragExit)
                 
                 let viewChangedOwnership = self.ownView(touch, viewToOwn: newView)
@@ -188,7 +194,15 @@ class ForwardingView: UIView {
                 }
             }
             else {
-                self.handleControl(oldView, controlEvent: .TouchDragInside)
+                if (force >= 0.6 && deepPressFlag == false) {
+                    self.handleControl(oldView, controlEvent: .TouchDown)  // Trigger tap haptic
+                    self.handleControl(oldView, controlEvent: .TouchUpInside) // Handle keyPress
+                    deepPressFlag = true
+                } else if (force <= 0.5) {
+                    deepPressFlag = false
+                } else {
+                    self.handleControl(oldView, controlEvent: .TouchDragInside)
+                }
             }
         }
     }
@@ -208,10 +222,11 @@ class ForwardingView: UIView {
             
             self.touchToView[touch] = nil
         }
+        deepPressFlag = false
     }
 
-    override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
-        if let touches = touches {
+    override func touchesCancelled(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        //if let touches = touches {
             for touch in touches {
                 let view = self.touchToView[touch]
                 
@@ -219,6 +234,7 @@ class ForwardingView: UIView {
                 
                 self.touchToView[touch] = nil
             }
-        }
+        //}
+        deepPressFlag = false
     }
 }

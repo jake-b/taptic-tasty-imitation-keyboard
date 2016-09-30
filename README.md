@@ -1,3 +1,11 @@
+# Taptic Tasty Imitation Keyboard
+
+This is a quick-and-dirty hack to add iPhone 7 taptic support to the keys the keyboard.  It is intended just to try out what a keyboard might feel like with taptic feedback.  It is not intended for actual use, as it really is "quick and dirty".  There may be optimizations with the code to improve the response time of the taptic engine to various events.
+
+This code also include a terrible hack for a 3D touch mode where you can drag across the keyboard lightly (generating taps on the taptic engine) and then a force-press to select the key.  Again, a proof of concept, not sure if its really a good paradigm or not.
+
+I left the "Cat mode" feature in the example code because I was too lazy to strip it out and put something more useful, but I have defaulted it to 'off' now.
+
 # Tasty Imitation Keyboard
 
 I'm working on a 3rd party keyboard for iOS8 and I want it to look and feel as close as possible to Apple's keyboard. Unfortunately, it's not possible to access the keyboard view through code, so this is my attempt to imitate it by hand. (I'm sure there are ways to get even more accuracy via reverse engineering, but that's too much work for me!) In the end, I hope to produce a coherent and robust baseline for creating custom 3rd party keybards — at least, until Apple decides to fully open up their keyboard API.
