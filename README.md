@@ -6,6 +6,8 @@ This code also include a terrible hack for a 3D touch mode where you can drag ac
 
 I left the "Cat mode" feature in the example code because I was too lazy to strip it out and put something more useful, but I have defaulted it to 'off' now.
 
+**Note: Keyboard requires "full access" configured in the Settings app in order to use the taptic engine.**
+
 # Tasty Imitation Keyboard
 
 I'm working on a 3rd party keyboard for iOS8 and I want it to look and feel as close as possible to Apple's keyboard. Unfortunately, it's not possible to access the keyboard view through code, so this is my attempt to imitate it by hand. (I'm sure there are ways to get even more accuracy via reverse engineering, but that's too much work for me!) In the end, I hope to produce a coherent and robust baseline for creating custom 3rd party keybards — at least, until Apple decides to fully open up their keyboard API.
